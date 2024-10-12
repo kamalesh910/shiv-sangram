@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SHIVSANGRAM</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com./font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+	<script>
+		const imageData = {
+    "sections": [
+      {
+        "section": "Jayanti_Photo_2022",
+        "images": [
+            "test.jpeg",
+            "WhatsApp Image 2024-10-12 at 00.33.35 (2).jpeg",
+            "WhatsApp Image 2024-10-12 at 00.33.35.jpeg"
+        ]
+      },
+      {
+        "section": "Jayanti_Photo_2023",
+        "images": [
+          "image4.jpg",
+          "image5.jpg",
+          "image6.jpg"
+        ]
+      }
+    ]
+  }
+  
+	</script>
+  </head>
+
+  <body>
+    <div class="menu-bar">
+      <ul>
+        <li class="active">
+          <a href="./SHIVSANGRAM.html"><i class="fa fa-home"></i>Home</a>
+        </li>
+        <li>
+          <a href="./About.html"><i class="fa fa-user"></i>About</a>
+        </li>
+		<li><a href="#"><i class="fa fa-clone"></i>Gallery</a>
+			<div class="sub-menu-1">
+				<ul>
+					<li class="hover-me"><a href="#">Jayanti</a><i class="fa fa-angle-right"></i>
+						<div class="sub-menu-2">
+						<ul>
+							<li><a href="./photos.html?folder=Jayanti&gallery=Jayanti_Photo_2022">Jayanti Photo 2022</a></li>
+							<li><a href="./photos.html?folder=Jayanti&gallery=Jayanti_Photo_2023">Jayanti Photo 2023</a></li>
+							<li><a href="./photos.html?folder=Jayanti&gallery=Jayanti_Photo_2024">Jayanti Photo 2024</a></li>
+						</ul>
+						</div>
+					</li>
+					<li class="hover-me"><a href="#">Punyatithi</a><i class="fa fa-angle-right"></i>
+						<div class="sub-menu-2">
+						<ul>
+							<li><a href="./photos.html?folder=Punyatithi&gallery=Punyatithi_Photo_2022">Punyatithi Photo 2022</a></li>
+							<li><a href="./photos.html?folder=Punyatithi&gallery=Punyatithi_Photo_2023">Punyatithi Photo 2023</a></li>
+							<li><a href="./photos.html?folder=Punyatithi&gallery=Punyatithi_Photo_2024">Punyatithi Photo 2024</a></li>
+						</ul>
+						</div>
+					</li>
+					<li><a href="./photos.html?folder=Mete_Saheb_Photos">Vinayakrao Mete Saheb Photos</a></li>
+					<li class="hover-me"><a href="#">Dr.Jyotitai Vinayakrao Mete Madam Photos</a><i class="fa fa-angle-right"></i>
+						<div class="sub-menu-2">
+						<ul>
+							<li><a href="./photos.html?folder=Mete_Madam_Photos&gallery=Tour_Photos">Tour Photos</a></li>
+							<li><a href="./photos.html?folder=Mete_Madam_Photos&gallery=Program_Photos">Program Photos</a></li>
+						</ul>
+						</div>
+					</li>
+					<li class="hover-me"><a href="#">News Paper</a><i class="fa fa-angle-right"></i>
+						<div class="sub-menu-2">
+						<ul>
+							<li><a href="./All News Paper.html">All News Paper</a></li>
+						</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</li>
+        <main>
+          <div class="gallery" id="imageContainer"></div>
+        </main>
+        <li>
+          <a href="#"><i class="fa fa-clone"></i>Contact</a>
+          <div class="sub-menu-1">
+            <ul>
+              <li class="hover-me"><a href="#">9021134644</a></li>
+              <li class="hover-me"><a href="#">shivsangram@gmail.com</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+
+      // Extract the 'folder' and 'gallery' parameters
+      const folder = params.get("folder");
+      const gallery = params.get("gallery");
+      // Assume the images are named sequentially or in a predictable manner
+      const totalImages = 600; // Number of images you want to display
+      const imageFolder = "./Images/Gallery/"+folder+"/"+gallery; // Folder where images are stored
+
+      const imageContainer = document.getElementById("imageContainer");
+
+    
+        // Find the section that matches the gallery name
+        const sectionData = imageData.sections.find(section => section.section === gallery);
+
+        // If section is found, display its images
+        if (sectionData) {
+            displayImages(sectionData.images, gallery);
+        } else {
+            document.getElementById('imageContainer').innerHTML = 'No images found for this section!';
+        }
+
+        // Function to display images
+        function displayImages(images, gallery) {
+            const imageContainer = document.getElementById('imageContainer');
+            imageContainer.innerHTML = '';  // Clear any existing images
+
+            // Loop through the images array and create img elements
+            images.forEach(imageName => {
+                const boxDiv = document.createElement('div');
+                boxDiv.classList.add('box');
+
+                const img = document.createElement('img');
+                img.src = `./${imageFolder}/${imageName}`;  // Construct image URL based on gallery and image name
+
+                boxDiv.appendChild(img);
+                imageContainer.appendChild(boxDiv);
+            });
+        }
+    </script>
+
+    </script>
+  </body>
+</html>
