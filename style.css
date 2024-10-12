@@ -1,7 +1,48 @@
-img
-{
-	width: 100px;
-	height: 100px;
+
+   /* Reset some default browser styles */
+   * {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+/* Gallery container to hold all .box divs */
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr); /* 4 columns */
+	gap: 10px; /* Space between the images */
+	padding: 10px;
+}
+
+/* Each .box div containing an image */
+.box img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Media query for tablet screens (768px and below) */
+@media (max-width: 768px) {
+	.gallery {
+		grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
+	}
+}
+
+/* Media query for mobile screens (480px and below) */
+@media (max-width: 480px) {
+	.gallery {
+		grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+	}
+}
+
+header{
+font-size: 150;
+text-align: center;
+}
+
+img:hover{
+transform: scale(1,1);
+transition: 1s tranform;
 }
 *
 {
