@@ -22,11 +22,41 @@
       {
         "section": "Jayanti_Photo_2023",
         "images": [
-          "image4.jpg",
-          "image5.jpg",
-          "image6.jpg"
         ]
-      }
+      },
+	  {
+        "section": "Jayanti_Photo_2024",
+        "images": [
+        ]
+      },
+	  {
+        "section": "Program_Photos",
+        "images": [
+        ]
+      },      {
+        "section": "Mete_Saheb_Photos",
+        "images": [
+        ]
+      },      {
+        "section": "News_Paper",
+        "images": [
+        ]
+      },
+	  {
+        "section": "Punyatithi_Photo_2022",
+        "images": [
+        ]
+      },
+	  {
+        "section": "Punyatithi_Photo_2023",
+        "images": [
+        ]
+      },
+	  {
+        "section": "Punyatithi_Photo_2024",
+        "images": [
+        ]
+      },
     ]
   }
   
@@ -106,8 +136,11 @@
       const gallery = params.get("gallery");
       // Assume the images are named sequentially or in a predictable manner
       const totalImages = 600; // Number of images you want to display
-      const imageFolder = "./Images/Gallery/"+folder+"/"+gallery; // Folder where images are stored
-
+      var imageFolder;
+	  if(folder!=null && gallery!=null)
+	  imageFolder= "./Images/Gallery/"+folder+"/"+gallery; // Folder where images are stored
+	  else if(gallery==null)
+      imageFolder= "./Images/Gallery/"+folder;
       const imageContainer = document.getElementById("imageContainer");
 
     

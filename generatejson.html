@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folder to JSON Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Folder to JSON Converter</h1>
+    <p>Select a folder that contains images to generate the JSON structure:</p>
+    
+    <!-- Folder input -->
+    <input type="file" id="folderInput" webkitdirectory directory multiple>
+
+    <div class="output">
+        <h2>Generated JSON:</h2>
+        <pre id="jsonOutput"></pre>
+        <button id="downloadJson">Download JSON</button>
+    </div>
+
+    <script>
+        const folderInput = document.getElementById('folderInput');
+        const jsonOutput = document.getElementById('jsonOutput');
+        const downloadBtn = document.getElementById('downloadJson');
+
+        let jsonData = { sections: [] };
+
+        folderInput.addEventListener('change', (event) => {
+            const files = event.target.files;
+            const folderMap = {};
+
+            // Process files, group by folders
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const folderName = file.webkitRelativePath.split('/')[0]; // Extract folder name
+                const fileName = file.name;
+
+                if (!folderMap[folderName]) {
+                    folderMap[folderName] = [];
+                }
+
+                folderMap[folderName].push(fileName);
+            }
+
+            // Convert to desired JSON structure
+            jsonData = {
+                sections: Object.keys(folderMap).map(folder => ({
+                    section: folder,
+                    images: folderMap[folder]
+                }))
+            };
+
+            // Display the generated JSON
+            jsonOutput.textContent = JSON.stringify(jsonData, null, 2);
+        });
+
+        // Download JSON
+        downloadBtn.addEventListener('click', () => {
+            const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'imageData.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    </script>
+
+</body>
+</html>
