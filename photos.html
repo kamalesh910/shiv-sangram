@@ -9,6 +9,20 @@
       href="https://stackpath.bootstrapcdn.com./font-awesome/4.7.0/css/font-awesome.min.css"
     />
 	<script>
+      function openImageInNewTab() {
+        const images = document.querySelectorAll("img");
+
+        images.forEach((image) => {
+          image.addEventListener("click", () => {
+            const imageUrl = image.src;
+            window.open(imageUrl, "_blank");
+          });
+        });
+      }
+
+      window.onload = openImageInNewTab;
+		
+		
 		const imageData = {
     "sections": [
       {
