@@ -3,26 +3,38 @@
   <head>
     <meta charset="utf-8" />
     <title>SHIVSANGRAM</title>
-    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com./font-awesome/4.7.0/css/font-awesome.min.css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
-	<script>
-      function openImageInNewTab() {
-        const images = document.querySelectorAll("img");
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
 
-        images.forEach((image) => {
-          image.addEventListener("click", () => {
-            const imageUrl = image.src;
-            window.open(imageUrl, "_blank");
-          });
-        });
+    <style>
+      /* Custom styles for image gallery */
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
       }
+      .box img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+      }
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+    </style>
 
-      window.onload = openImageInNewTab;
-		
-		
+    <script>
+      // Image data for demonstration
 		const imageData = {
     "sections": [
       {
@@ -1317,7 +1329,72 @@
     ]
   }
   
-	</script>
+
+      let currentPage = 1;
+      const imagesPerPage = 4;
+
+      function displayImages(images) {
+        const imageContainer = document.getElementById("imageContainer");
+        imageContainer.innerHTML = "";
+
+        const startIndex = (currentPage - 1) * imagesPerPage;
+        const endIndex = Math.min(startIndex + imagesPerPage, images.length);
+
+        for (let i = startIndex; i < endIndex; i++) {
+          const boxDiv = document.createElement("div");
+          boxDiv.classList.add("box");
+
+          const img = document.createElement("img");
+          img.src = `./Images/Gallery/${images[i]}`; // Assume image folder structure
+
+          boxDiv.appendChild(img);
+          imageContainer.appendChild(boxDiv);
+        }
+      }
+
+      function setupPagination(images) {
+        const totalPages = Math.ceil(images.length / imagesPerPage);
+        const paginationContainer = document.getElementById("pagination");
+
+        paginationContainer.innerHTML = `
+          <li class="page-item"><a class="page-link" href="#" onclick="changePage('prev')">Previous</a></li>
+        `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          paginationContainer.innerHTML += `
+            <li class="page-item ${i === currentPage ? 'active' : ''}">
+              <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+            </li>
+          `;
+        }
+
+        paginationContainer.innerHTML += `
+          <li class="page-item"><a class="page-link" href="#" onclick="changePage('next')">Next</a></li>
+        `;
+      }
+
+      function changePage(page) {
+        const images = imageData.sections[0].images;
+        const totalPages = Math.ceil(images.length / imagesPerPage);
+
+        if (page === "prev" && currentPage > 1) {
+          currentPage--;
+        } else if (page === "next" && currentPage < totalPages) {
+          currentPage++;
+        } else if (typeof page === "number") {
+          currentPage = page;
+        }
+
+        displayImages(images);
+        setupPagination(images);
+      }
+
+      window.onload = function () {
+        const images = imageData.sections[0].images;
+        displayImages(images);
+        setupPagination(images);
+      };
+    </script>
   </head>
 
   <body>
@@ -1329,107 +1406,23 @@
         <li>
           <a href="./About.html"><i class="fa fa-user"></i>About</a>
         </li>
-		<li><a href="#"><i class="fa fa-clone"></i>Gallery</a>
-			<div class="sub-menu-1">
-				<ul>
-					<li class="hover-me"><a href="#">Jayanti</a><i class="fa fa-angle-right"></i>
-						<div class="sub-menu-2">
-						<ul>
-							<li><a href="./photos.html?folder=Jayanti&gallery=Jayanti_Photo_2022">Jayanti Photo 2022</a></li>
-							<li><a href="./photos.html?folder=Jayanti&gallery=Jayanti_Photo_2023">Jayanti Photo 2023</a></li>
-							<li><a href="./photos.html?folder=Jayanti&gallery=Jayanti_Photo_2024">Jayanti Photo 2024</a></li>
-						</ul>
-						</div>
-					</li>
-					<li class="hover-me"><a href="#">Punyatithi</a><i class="fa fa-angle-right"></i>
-						<div class="sub-menu-2">
-						<ul>
-							<li><a href="./photos.html?folder=Punyatithi&gallery=Punyatithi_Photo_2022">Punyatithi Photo 2022</a></li>
-							<li><a href="./photos.html?folder=Punyatithi&gallery=Punyatithi_Photo_2023">Punyatithi Photo 2023</a></li>
-							<li><a href="./photos.html?folder=Punyatithi&gallery=Punyatithi_Photo_2024">Punyatithi Photo 2024</a></li>
-						</ul>
-						</div>
-					</li>
-					<li><a href="./photos.html?folder=Mete_Saheb_Photos">Vinayakrao Mete Saheb Photos</a></li>
-					<li class="hover-me"><a href="#">Dr.Jyotitai Vinayakrao Mete Madam Photos</a><i class="fa fa-angle-right"></i>
-						<div class="sub-menu-2">
-						<ul>
-							<li><a href="./photos.html?folder=Mete_Madam_Photos&gallery=Tour_Photos">Tour Photos</a></li>
-							<li><a href="./photos.html?folder=Mete_Madam_Photos&gallery=Program_Photos">Program Photos</a></li>
-						</ul>
-						</div>
-					</li>
-					<li class="hover-me"><a href="#">News Paper</a><i class="fa fa-angle-right"></i>
-						<div class="sub-menu-2">
-						<ul>
-							<li><a href="./All News Paper.html">All News Paper</a></li>
-						</ul>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</li>
+        <li>
+          <a href="#"><i class="fa fa-clone"></i>Gallery</a>
+          <!-- Sub-menu goes here -->
+        </li>
         <li>
           <a href="#"><i class="fa fa-clone"></i>Contact</a>
-          <div class="sub-menu-1">
-            <ul>
-              <li class="hover-me"><a href="#">9021134644</a></li>
-              <li class="hover-me"><a href="#">shivsangram@gmail.com</a></li>
-            </ul>
-          </div>
         </li>
       </ul>
     </div>
 
-	<main>
-		<div class="gallery" id="imageContainer"></div>
-	  </main>
+    <main>
+      <div class="gallery" id="imageContainer"></div>
+      <ul class="pagination" id="pagination"></ul>
+    </main>
 
-    <script>
-      const params = new URLSearchParams(window.location.search);
-
-      // Extract the 'folder' and 'gallery' parameters
-      const folder = params.get("folder");
-      const gallery = params.get("gallery");
-      // Assume the images are named sequentially or in a predictable manner
-      const totalImages = 600; // Number of images you want to display
-      var imageFolder;
-	  if(folder!=null && gallery!=null)
-	  imageFolder= "./Images/Gallery/"+folder+"/"+gallery; // Folder where images are stored
-	  else if(gallery==null)
-      imageFolder= "./Images/Gallery/"+folder;
-      const imageContainer = document.getElementById("imageContainer");
-
-    
-        // Find the section that matches the gallery name
-        const sectionData = imageData.sections.find(section => section.section === gallery);
-
-        // If section is found, display its images
-        if (sectionData) {
-            displayImages(sectionData.images, gallery);
-        } else {
-            document.getElementById('imageContainer').innerHTML = 'No images found for this section!';
-        }
-
-        // Function to display images
-        function displayImages(images, gallery) {
-            const imageContainer = document.getElementById('imageContainer');
-            imageContainer.innerHTML = '';  // Clear any existing images
-
-            // Loop through the images array and create img elements
-            images.forEach(imageName => {
-                const boxDiv = document.createElement('div');
-                boxDiv.classList.add('box');
-
-                const img = document.createElement('img');
-                img.src = `./${imageFolder}/${imageName}`;  // Construct image URL based on gallery and image name
-
-                boxDiv.appendChild(img);
-                imageContainer.appendChild(boxDiv);
-            });
-        }
-    </script>
-
-    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </body>
 </html>
