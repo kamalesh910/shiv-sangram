@@ -1485,10 +1485,10 @@
         document.getElementById("imageContainer").innerHTML =
           "No images found for this section!";
       }
-
+Var currentPage = 1;
       // Function to display images for the current page
       function displayImages() {
-        let currentPage = 1;
+        
         const imagesPerPage = 20; // Number of images to show per page
         const totalPages = Math.ceil(sectionData.images.length / imagesPerPage);
         const imageContainer = document.getElementById("imageContainer");
