@@ -1489,7 +1489,7 @@
       // Function to display images for the current page
       function displayImages() {
         let currentPage = 1;
-        const imagesPerPage = 8; // Number of images to show per page
+        const imagesPerPage = 20; // Number of images to show per page
         const totalPages = Math.ceil(sectionData.images.length / imagesPerPage);
         const imageContainer = document.getElementById("imageContainer");
         imageContainer.innerHTML = ""; // Clear previous images
@@ -1502,7 +1502,7 @@
           boxDiv.classList.add("box");
 
           const img = document.createElement("img");
-          img.src = `./Images/Gallery/${imageFolder}/${sectionData.images[i]}`;
+          img.src = `${imageFolder}/${sectionData.images[i]}`;
           // img.src = `./${imageFolder}/${imageName}`;
 
           boxDiv.appendChild(img);
